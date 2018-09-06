@@ -47,6 +47,7 @@ section h2.section-heading {
 
 section h3.section-subheading {
   font-size: 16px;
+  line-height: 27px;
   font-weight: 400;
   font-style: italic;
   margin-bottom: 75px;
@@ -240,7 +241,7 @@ header.masthead .intro-text .intro-heading {
   display: block;
   max-width: 400px;
   margin: 0 auto;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 #portfolio .portfolio-item .portfolio-link .portfolio-hover {
@@ -250,7 +251,7 @@ header.masthead .intro-text .intro-heading {
   -webkit-transition: all ease 0.5s;
   transition: all ease 0.5s;
   opacity: 0;
-  background: rgba(254, 209, 54, 0.9);
+  /* background: rgba(254, 209, 54, 0.9); */
 }
 
 #portfolio .portfolio-item .portfolio-link .portfolio-hover:hover {
