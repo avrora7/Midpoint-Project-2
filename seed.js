@@ -60,22 +60,26 @@ db.sequelize.sync({ force: true }).then(function () {
             tmpJobs = [
               {
                 title: "Simultaneous interpreter/ conference/ 15-18 October/ Amsterdam,Netherlands",
-                status: true,
-                LanguageId: languages[0].get("id"),
-                VendorId: vendors[0].get("id"),
+                status: db.Job.STATUS_OPEN,
+                languageFromId: languages[0].get("id"),
+                languageToId: languages[1].get("id"),
+                vendorId: vendors[0].get("id"),
               },
               {
                 title: "Consecutive interpreter/ economic forum/ 27-28 September/ Vienna, Austria",
-                status: true,
-                LanguageId: languages[1].get("id"),
-                VendorId: vendors[1].get("id"),
+                status: db.Job.STATUS_ASSIGNED,
+                languageFromId: languages[1].get("id"),
+                languageToId: languages[2].get("id"),
+                vendorId: vendors[1].get("id"),
+                userId: users[1].get("id")
               },
               {
                 title: "1650 words/financial/ 30 September",
-                status: false,
-                LanguageId: languages[2].get("id"),
-                VendorId: vendors[2].get("id"),
-                UserId: users[2].get("id")
+                status: db.Job.STATUS_CLOSED,
+                languageFromId: languages[2].get("id"),
+                languageToId: languages[1].get("id"),
+                vendorId: vendors[2].get("id"),
+                userId: users[2].get("id")
               },
             ];
             db.Job.bulkCreate(tmpJobs).then(function (dbJobs) {

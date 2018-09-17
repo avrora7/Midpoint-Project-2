@@ -1,42 +1,34 @@
 <h1>View and Apply for a Job</h1>
 <script src="/js/user.js"></script>
-{{!-- <h1>Cats!</h1>
 
-<h2>Cats that are not sleepy!</h2>
-
-<ul>
-  {{#each cats}}
-    {{#unless sleepy}}
-      {{> cats/cat-block sleep=true}}
-    {{/unless}}
+<table class="table table-striped table-bordered">
+  <tr>
+    <th>ID</th>
+    <th>Date Posted</th>
+    <th>Source language</th>
+    <th>Target language</th>
+    <th>Title</th>
+    <th>Status</th>
+    <th>Contact</th>
+    <th>Action</th>
+  </tr>
+  {{#each jobs}}
+  <tr>
+    <td>{{id}}</td>
+    <td>{{createdAt}}</td>
+    <td>{{LanguageFrom.name}}</td>
+    <td>{{LanguageTo.name}}</td>
+    <td>{{title}}</td>
+    <td>{{status}}</td>
+    <td>{{Vendor.fullName}}</td>
+    <td> 
+      {{#ifEquals  status "open"}}
+      <button id="" class="btn btn-primary text-uppercase">Apply</button>
+      {{/ifEquals }}
+      {{#ifEquals  status "assigned"}}
+      <button id="" class="btn btn-primary text-uppercase">Close</button>
+      {{/ifEquals }}
+      </td>
+  </tr>
   {{/each}}
-</ul>
-
-<h2>Cats that are sleepy!</h2>
-
-<ul>
-  {{#each cats}}
-    {{#if sleepy}}
-      {{> cats/cat-block sleep=false}}
-    {{/if}}
-  {{/each}}
-</ul>
-
-<h2>Add a Cat</h2>
-<form class="create-form">
-
-  <div class="form-group">
-    <label for="ca">Cat Name:</label>
-    <input type="text" id="ca" name="name">
-  </div>
-
-  <div class="form-group">
-    <label for="sleepy">Sleepy?</label><br>
-    <input type="radio" name="sleepy" value="1" checked> Sleepy!<br>
-    <input type="radio" name="sleepy" value="0"> Awake
-  </div>
-
-  <button type="submit">Add Cat</button>
-</form> --}}
-
-User Handlebars!!
+</table>

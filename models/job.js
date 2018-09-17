@@ -8,29 +8,42 @@ module.exports = function (sequelize, DataTypes) {
       }
     },
     status: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.STRING,
       defaultValue: false
-    },
-    // vendor_id: {
-    //   type: DataTypes.INT,
-    //   allowNull: false,
-    // } 
+    }
   });
+
+  Job.STATUS_OPEN = "open";
+  Job.STATUS_ASSIGNED = "assigned";
+  Job.STATUS_CLOSED = "closed";
 
 
   Job.associate = function (models) {
     Job.belongsTo(models.Vendor, {
+      as: "Vendor",
       foreignKey: {
+        name:"vendorId",
         allowNull: false
       }
     });
     Job.belongsTo(models.User, {
+      as: "User",
       foreignKey: {
+        name: "userId",
         allowNull: true
       }
     });
     Job.belongsTo(models.Language, {
+      as: "LanguageFrom",
       foreignKey: {
+        name: "languageFromId",
+        allowNull: false
+      }
+    }),
+    Job.belongsTo(models.Language, {
+      as: "LanguageTo",
+      foreignKey: {
+        name: "languageToId",
         allowNull: false
       }
     });
