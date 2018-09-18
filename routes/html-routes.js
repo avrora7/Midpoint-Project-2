@@ -26,27 +26,33 @@ module.exports = function (app) {
     db.Job.findAll({
       order: ["id"],
       include: [
-      {
-        model: db.Language,
-        as: 'LanguageTo',
-      },
-      {
-        model: db.Language,
-        as: 'LanguageFrom',
-      },
-      {
-        model: db.User,
-        as: "User"
-      }
-  ]}).then(function (dbJobs) {
+        {
+          model: db.Language,
+          as: 'LanguageTo',
+        },
+        {
+          model: db.Language,
+          as: 'LanguageFrom',
+        },
+        {
+          model: db.User,
+          as: "User"
+        }
+      ]
+    }
+    ).then(function (dbJobs) {
+      db.Language.findAll({
+        order: ["name"],
+      }).then(function (dbLanguages) {
+        console.log(dbJobs[0]);
 
-      console.log(dbJobs[0]);
-
-      var hbsObject = {
-        jobs: dbJobs
-      };
-      console.log(hbsObject);
-      res.render("vendor", hbsObject);
+        var hbsObject = {
+          jobs: dbJobs,
+          languages: dbLanguages
+        };
+        console.log(hbsObject);
+        res.render("vendor", hbsObject);
+      })
     });
   });
 
@@ -54,19 +60,20 @@ module.exports = function (app) {
     db.Job.findAll({
       order: ["id"],
       include: [
-      {
-        model: db.Language,
-        as: 'LanguageTo',
-      },
-      {
-        model: db.Language,
-        as: 'LanguageFrom',
-      },
-      {
-        model: db.Vendor,
-        as: "Vendor"
-      }
-  ]}).then(function (dbJobs) {
+        {
+          model: db.Language,
+          as: 'LanguageTo',
+        },
+        {
+          model: db.Language,
+          as: 'LanguageFrom',
+        },
+        {
+          model: db.Vendor,
+          as: "Vendor"
+        }
+      ]
+    }).then(function (dbJobs) {
 
       console.log(dbJobs[0]);
 
