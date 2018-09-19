@@ -44,13 +44,11 @@ module.exports = function (app) {
       db.Language.findAll({
         order: ["name"],
       }).then(function (dbLanguages) {
-        console.log(dbJobs[0]);
 
         var hbsObject = {
           jobs: dbJobs,
           languages: dbLanguages
         };
-        console.log(hbsObject);
         res.render("vendor", hbsObject);
       })
     });
@@ -74,13 +72,9 @@ module.exports = function (app) {
         }
       ]
     }).then(function (dbJobs) {
-
-      console.log(dbJobs[0]);
-
       var hbsObject = {
         jobs: dbJobs
       };
-      console.log(hbsObject);
       res.render("user", hbsObject);
     });
   });
@@ -93,9 +87,6 @@ module.exports = function (app) {
     res.render("login");
   });
 
-  // app.get("/login", function(req, res) {
-  //   // If the user already has an account send them to the members page
-  //   if (req.user) {
   //     res.redirect("/members");
   //   }
   //   res.sendFile(path.join(__dirname, "../public/login.html"));
