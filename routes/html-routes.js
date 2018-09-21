@@ -1,8 +1,7 @@
-// Requiring path to so we can use relative routes to our HTML files
 var path = require("path");
 var passport = require("../config/passport");
 
-// Requiring our custom middleware for checking if a user is logged in
+// Requiring custom middleware for checking if a user is logged in
 var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function (app) {
@@ -24,7 +23,7 @@ module.exports = function (app) {
   var db = require("../models");
 
   app.get("/vendor", isAuthenticated, function (req, res) {
-    if(req.user.role != db.User.ROLE_VENDOR) {
+    if (req.user.role != db.User.ROLE_VENDOR) {
       res.redirect("/");
       return;
     }
@@ -32,7 +31,7 @@ module.exports = function (app) {
     db.Job.findAll({
       order: [["id", "desc"]],
       where: {
-        vendorId:req.user.id
+        vendorId: req.user.id
       },
       include: [
         {
@@ -64,7 +63,7 @@ module.exports = function (app) {
   });
 
   app.get("/translator", isAuthenticated, function (req, res) {
-    if(req.user.role != db.User.ROLE_TRANSLATOR) {
+    if (req.user.role != db.User.ROLE_TRANSLATOR) {
       res.redirect("/");
       return;
     }
@@ -73,18 +72,18 @@ module.exports = function (app) {
       where: {
         $or: [
           {
-            userId: 
-              {
-                  $eq: req.user.id
-              }
-          }, 
+            userId:
+            {
+              $eq: req.user.id
+            }
+          },
           {
-            userId: 
-              {
-                  $eq: null
-              }
+            userId:
+            {
+              $eq: null
+            }
           }
-      ]
+        ]
       },
       include: [
         {
@@ -121,7 +120,6 @@ module.exports = function (app) {
   //   res.sendFile(path.join(__dirname, "../public/login.html"));
   // });
 
-  // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
   app.get("/members", isAuthenticated, function (req, res) {
     res.sendFile(path.join(__dirname, "../public/members.html"));

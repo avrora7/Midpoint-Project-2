@@ -46,7 +46,6 @@ $(document).ready(function () {
         location.reload();
       });
   });
-
 });
 
 function displayError(error) {

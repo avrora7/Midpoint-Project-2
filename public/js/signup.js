@@ -1,11 +1,11 @@
 $(document).ready(function() {
-  // Getting references to our form and input
+  // Getting references to form and input
   var email = $("#email");
   var password1 = $("#password1");
   var password2 = $("#password2");
   var role = 
 
-  // When the signup button is clicked, we validate the email and password are not blank
+  // When the signup button is clicked, this validates that the email and password are not blank
   $("#submitForm").on("click", function(event) {
     event.preventDefault();
     var userData = {

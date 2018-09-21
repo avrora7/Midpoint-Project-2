@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  $(".applyBtn").click(function(event) {
+  $(".applyBtn").click(function (event) {
 
     var jobUpdate = {
       action: "apply",
@@ -16,11 +16,10 @@ $(document).ready(function () {
         location.reload();
       });
   });
-
 });
 
 $(document).ready(function () {
-  $(".closeBtn").click(function(event) {
+  $(".closeBtn").click(function (event) {
 
     var jobUpdate = {
       action: "close",
@@ -37,7 +36,6 @@ $(document).ready(function () {
         location.reload();
       });
   });
-
 });
 
 function displayError(error) {
