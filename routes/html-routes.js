@@ -30,7 +30,7 @@ module.exports = function (app) {
     }
 
     db.Job.findAll({
-      order: ["id"],
+      order: [["id", "desc"]],
       where: {
         vendorId:req.user.id
       },

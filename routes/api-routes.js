@@ -7,7 +7,8 @@ module.exports = function (app) {
   // If the user has valid login credentials, send them to the members page.
   // Otherwise the user will be sent an error
   app.post("/api/login", passport.authenticate("local"), function (req, res) {
-    console.log(req.user) 
+    console.log("$$$$$$$$$$$$$$$$");
+    console.log(req) 
     // Since we're doing a POST with javascript, we can't actually redirect that post into a GET request
     // So we're sending the user back the route to the members page because the redirect will happen on the front end
     // They won't get this or even be able to access this page if they aren't authed
@@ -24,7 +25,7 @@ module.exports = function (app) {
       //res.redirect(307, "/api/login");
       res.json("ok");
     }).catch(function (err) {
-      console.log(err);
+     
       res.status(422).json(err);
     });
   });
@@ -57,9 +58,10 @@ module.exports = function (app) {
     newJob.status = db.Job.STATUS_OPEN;
     console.log(newJob)
     db.Job.create(newJob).then(function () {
+      res.json("OK");
     }).catch(function (err) {
       console.log(err);
-      res.json(err);
+      res.status(422).json(err);
       // res.status(422).json(err.errors[0].message);
     });
   });
@@ -67,26 +69,24 @@ module.exports = function (app) {
   app.put("/api/jobs", function (req, res) {
 
     var jobUpdate = req.body;
+    console.log("*********************");
+    console.log(req.body);
+    console.log("*********************");
 
-     db.Job.findById(jobUpdate.id).then(function(job) {
-      console.log(job)
-      console.log(jobUpdate.action == "close")
-      console.log(job.get("status") == db.Job.STATUS_ASSIGNED)
-      console.log(job.get("userId") == req.uer.id)
-      console.log(job.get("userId"))
+     db.Job.findById(req.body.id).then(function(job) {
       if (job) {
         var currentStatus = job.status;
-        if (jobUpdate.action == "apply" && job.get("status") == db.Job.STATUS_OPEN) {
+        if (req.body.action == "apply" && job.get("status") == db.Job.STATUS_OPEN) {
           console.log("1111")
           job.set("status", db.Job.STATUS_ASSIGNED);
-          job.set("userId", req.uer.id);
-        } else if (jobUpdate.action == "close" && job.get("status") == db.Job.STATUS_ASSIGNED && job.get("userId") == fakeUserId) {
+          job.set("userId", req.user.id);
+        } else if (jobUpdate.action == "close" && job.get("status") == db.Job.STATUS_ASSIGNED && job.get("userId") == req.user.id) {
           console.log("222")
           job.set("status", db.Job.STATUS_CLOSED);
         }
         else {
           console.log("3333")
-          res.json("Error");
+          res.status(422).json("Error");
         }
         job.save().then(function(updatedJob) {
           res.json(updatedJob);

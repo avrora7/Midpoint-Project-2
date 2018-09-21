@@ -18,7 +18,7 @@ $(document).ready(function() {
     ).then(function(role) {
       location.replace("/" + role);
     }).catch(function(err) {
-      console.log(err);
+      alert("Invalid credentials");
     });
   });
 });
