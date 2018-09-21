@@ -1,40 +1,53 @@
 $(document).ready(function() {
   // Getting references to our form and input
-  var signUpForm = $("form.signup");
-  var emailInput = $("input#email-input");
-  var passwordInput = $("input#password-input");
+  var email = $("#email");
+  var password1 = $("#password1");
+  var password2 = $("#password2");
+  var role = 
 
   // When the signup button is clicked, we validate the email and password are not blank
-  signUpForm.on("submit", function(event) {
+  $("#submitForm").on("click", function(event) {
     event.preventDefault();
     var userData = {
-      email: emailInput.val().trim(),
-      password: passwordInput.val().trim()
+      email: $("#email").val().trim(),
+      password1: $("#password1").val().trim(),
+      password2: $("#password2").val().trim(),
+      role: $("#roleSelect").val(),
+      fullName: $("#fullName").val().trim()
     };
 
-    if (!userData.email || !userData.password) {
+    if (userData.fullName == "") {
+      alert("Enter full name");
+      return;
+    } else if (userData.role == "") {
+      alert("Select your role");
+      return;
+    }  else if (userData.email == "") {
+      alert("Enter email");
+      return;
+    } else if (userData.password1 == "") {
+      alert("Enter password");
+      return;
+    } else if (userData.password2 == "") {
+      alert("Re-enter password");
+      return;
+    } else if (userData.password1 != userData.password2) {
+      alert("Password mismatch");
       return;
     }
-    // If we have an email and password, run the signUpUser function
-    signUpUser(userData.email, userData.password);
-    emailInput.val("");
-    passwordInput.val("");
+    signUpUser(userData);
   });
 
   // Does a post to the signup route. If succesful, we are redirected to the members page
   // Otherwise we log any errors
-  function signUpUser(email, password) {
-    $.post("/api/signup", {
-      email: email,
-      password: password
-    }).then(function(data) {
-      window.location.replace(data);
+  function signUpUser(userData) {
+    $.post("/api/signup", userData).then(function(data) {
+      window.location.replace("/login");
       // If there's an error, handle it by throwing up a boostrap alert
     }).catch(handleLoginErr);
   }
 
   function handleLoginErr(err) {
-    $("#alert .msg").text(err.responseJSON);
-    $("#alert").fadeIn(500);
+    alert(err.responseJSON);
   }
 });

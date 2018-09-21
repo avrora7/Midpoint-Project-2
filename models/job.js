@@ -7,6 +7,10 @@ module.exports = function (sequelize, DataTypes) {
         len: [1]
       }
     },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     status: {
       type: DataTypes.STRING,
       defaultValue: false
@@ -19,7 +23,7 @@ module.exports = function (sequelize, DataTypes) {
 
 
   Job.associate = function (models) {
-    Job.belongsTo(models.Vendor, {
+    Job.belongsTo(models.User, {
       as: "Vendor",
       foreignKey: {
         name:"vendorId",

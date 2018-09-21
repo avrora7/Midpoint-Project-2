@@ -1,7 +1,7 @@
 {{> authStyle}}
 
 <script src="/js/login.js"></script>
-
+<form id="login">
 <div class="card mx-auto d-block" style="width: 36rem; margin-top: 80px">
     <h5 class="card-header text-center">LOGIN</h5>
     <div class="card-body">
@@ -10,18 +10,17 @@
             <input type="email" class="form-control" id="email" placeholder="Email">
         </div>
         <div class="form-group">
-            <label for="password1">Password</label>
-            <input type="password" class="form-control" id="password1" placeholder="Password">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password">
         </div>
         <div style="display: none" id="alert" class="alert alert-danger" role="alert">
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             <span class="sr-only">Error:</span> <span class="msg"></span>
         </div>
-        <button style="float: left" type="submit" class="btn btn-primary">LOGIN</button>
+        <button id="submit" style="float: left" type="button" class="btn btn-primary">LOGIN</button>
         <p style="display: block; width: 200px; float: left">&nbsp; &nbsp;or sign up <a href="/signup">here</a></p>
         <br>
         <br>
-        </form>
-     
     </div>
 </div>
+</form>

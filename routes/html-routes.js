@@ -1,5 +1,6 @@
 // Requiring path to so we can use relative routes to our HTML files
 var path = require("path");
+var passport = require("../config/passport");
 
 // Requiring our custom middleware for checking if a user is logged in
 var isAuthenticated = require("../config/middleware/isAuthenticated");
@@ -22,9 +23,17 @@ module.exports = function (app) {
 
   var db = require("../models");
 
-  app.get("/vendor", function (req, res) {
+  app.get("/vendor", isAuthenticated, function (req, res) {
+    if(req.user.role != db.User.ROLE_VENDOR) {
+      res.redirect("/");
+      return;
+    }
+
     db.Job.findAll({
       order: ["id"],
+      where: {
+        vendorId:req.user.id
+      },
       include: [
         {
           model: db.Language,
@@ -54,9 +63,29 @@ module.exports = function (app) {
     });
   });
 
-  app.get("/user", function (req, res) {
+  app.get("/translator", isAuthenticated, function (req, res) {
+    if(req.user.role != db.User.ROLE_TRANSLATOR) {
+      res.redirect("/");
+      return;
+    }
     db.Job.findAll({
       order: ["id"],
+      where: {
+        $or: [
+          {
+            userId: 
+              {
+                  $eq: req.user.id
+              }
+          }, 
+          {
+            userId: 
+              {
+                  $eq: null
+              }
+          }
+      ]
+      },
       include: [
         {
           model: db.Language,
@@ -67,7 +96,7 @@ module.exports = function (app) {
           as: 'LanguageFrom',
         },
         {
-          model: db.Vendor,
+          model: db.User,
           as: "Vendor"
         }
       ]
@@ -75,7 +104,7 @@ module.exports = function (app) {
       var hbsObject = {
         jobs: dbJobs
       };
-      res.render("user", hbsObject);
+      res.render("translator", hbsObject);
     });
   });
 
