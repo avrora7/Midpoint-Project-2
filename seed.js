@@ -2,7 +2,6 @@ var db = require("./models");
 
 var languages = null;
 var users = null;
-var vendors = null;
 
 db.sequelize.sync({ force: true }).then(function () {
   var Language = db.sequelize.models.Language

@@ -2,9 +2,6 @@ var db = require("../models");
 var passport = require("../config/passport");
 
 module.exports = function (app) {
-  // Using the passport.authenticate middleware with local strategy.
-  // If the user has valid login credentials, send them to the user page.
-  // Otherwise the user will be sent an error
   app.post("/api/login", passport.authenticate("local"), function (req, res) {
     console.log(req)
     res.json(req.user.get("role"));
@@ -43,6 +40,7 @@ module.exports = function (app) {
       });
     }
   });
+
   app.post("/api/jobs", function (req, res) {
 
     var newJob = req.body;
@@ -54,7 +52,7 @@ module.exports = function (app) {
     }).catch(function (err) {
       console.log(err);
       res.status(422).json(err);
-      
+
     });
   });
 
@@ -85,18 +83,7 @@ module.exports = function (app) {
         });
       }
     });
-
-    // newJob.vendorId =1;
-    // newJob.status = db.Job.STATUS_OPEN;
-    // console.log(newJob)
-    // db.Job.create(newJob).then(function () {
-    // }).catch(function (err) {
-    //   console.log(err);
-    //   res.json(err);
-    //   // res.status(422).json(err.errors[0].message);
-    // });
   });
-
 };
 
 
